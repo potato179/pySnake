@@ -7,7 +7,7 @@ import random # 난수 불러오기
 
 ################################ 기본 구성 ################################
 pygame.init() # 파이게임 초기화
-display = pygame.display.set_mode( 600,600 ) # 가로세로 600
+display = pygame.display.set_mode((600, 600)) # 가로세로 600
 timer = pygame.time.Clock()   # 시간 함수
 
 food = [] # 음식 저장
@@ -40,7 +40,7 @@ def draw(endmessage):
         pygame.draw.rect(display, (50, 100, 50), Rect(i[0]*30, i[1]*30, 30, 30)) # 뱀(사각형 모양) 그리기
     
     if endmessage != None:
-        display.blit(endmessage, (150, 300)) # 해당 좌표에 종료 메시지 띄우기
+        display.blit(endmessage, (100, 300)) # 해당 좌표에 종료 메시지 띄우기
     
     pygame.display.update() # 실행 코드 업데이트
 
@@ -49,8 +49,9 @@ key = K_UP # 최초 실행 했을 때 위로 올라가게 동작 정하기
 endmessage = None # 게임 종료 메시지
 gameend = False # 게임 종류 여부
 score = 0 # 점수
+myfont = pygame.font.SysFont("malgungothic", 30)
 
-snake.append(int(width/2, int(height/2))) # 화면 중앙 부터 뱀 꼬리 만들기
+snake.append((int(width/2), int(height/2))) # 화면 중앙 부터 뱀 꼬리 만들기
 
 for i in range(10):
     createFood() # 음식 생성 함수 호출
@@ -75,7 +76,7 @@ while True:
             body = (snake[0][0], snake[0][1]+1) # y측에 1을 더해서 한 칸 아래쪽으로 이동
 
         if body in snake or body[0] < 0 or body[0] >= height or body[1] < 0 or body[1] >= width:
-            endmessage = "게임이 종료되었습니다. 최종 점수: " + str(score) + "점" # 게임 종료 메시지 설정
+            endmessage = myfont.render("게임이 종료되었습니다. 점수: "+ str(score) + "점", True, (255, 255, 0)) # 게임 종료 메시지 설정
             gameend = True # 게임 종류 여부 참으로 전환
         
         snake.insert(0, body)
